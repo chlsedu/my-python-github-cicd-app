@@ -36,7 +36,7 @@ jobs:
       - name: Set up kind
         run: |
           curl -sSL https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64 -o /usr/local/bin/kind
-          chmod +x /usr/local/bin/kind
+          sudo chmod +x /usr/local/bin/kind
           kind create cluster
 
       - name: Build Docker image
