@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-python-github-cicd-app .
+          docker build  --progress=plain -t my-python-github-cicd-app .
 
       - name: Load image into kind cluster
         run: |

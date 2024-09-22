@@ -1,8 +1,13 @@
 # 使用Python的官方基础镜像
 FROM python:3.9-slim
 
-# 安装依赖，同时方便build阶段用
-RUN pip install --no-cache-dir -r requirements.txt
+# 更新pip
+# RUN pip install --upgrade pip
+
+# 安装依赖
+# 确保先复制requirements.txt
+COPY requirements.txt /app/requirements.txt  
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # 将应用程序文件复制到容器内
 COPY app.py /app/app.py
