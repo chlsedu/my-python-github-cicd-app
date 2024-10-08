@@ -54,9 +54,9 @@ jobs:
 
       - name: Test service accessibility (kind)
         run: |
-          kubectl port-forward service/my-python-github-cicd-app-service 30001:80 &  # 后台运行端口转发
+          kubectl port-forward service/my-python-github-cicd-app-service 30005:80 &  # 后台运行端口转发
           sleep 5  # 等待服务启动
-          curl -f http://localhost:30001 || echo "Service not reachable"
+          curl -f http://localhost:30005 || echo "Service not reachable"
 
       # - name: Deploy to Remote Kubernetes Cluster
       #   env:
@@ -69,6 +69,6 @@ jobs:
 
       # - name: Test service accessibility (remote)
       #   run: |
-      #     kubectl port-forward service/my-python-github-cicd-app-service 30001:80 &  # 后台运行端口转发
+      #     kubectl port-forward service/my-python-github-cicd-app-service 30005:80 &  # 后台运行端口转发
       #     sleep 5  # 等待服务启动
-      #     curl -f http://localhost:30001 || echo "Service not reachable"
+      #     curl -f http://localhost:30005 || echo "Service not reachable"

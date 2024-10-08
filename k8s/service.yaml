@@ -9,5 +9,5 @@ spec:
     - protocol: TCP
       port: 80           # 集群内部访问的端口
       targetPort: 5000     # 容器内部的端口
-      nodePort: 30001    # 外部访问的端口，选择一个30000-32767范围内的端口
+      nodePort: 30005    # 外部访问的端口，选择一个30000-32767范围内的端口
   type: NodePort
