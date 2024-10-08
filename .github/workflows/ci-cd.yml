@@ -51,12 +51,24 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
+      
+      - name: Wait for Pod to be ready
+        run: |
+          kubectl wait --for=condition=ready pod -l app=my-python-github-cicd-app --timeout=60s
 
       - name: Test service accessibility (kind)
         run: |
-          kubectl port-forward service/my-python-github-cicd-app-service 30005:80 &  # 后台运行端口转发
-          sleep 5  # 等待服务启动
-          curl -f http://localhost:30005 || echo "Service not reachable"
+          kubectl port-forward service/my-python-github-cicd-app-service 30005:80 &  # 后台执行端口转发
+          sleep 5  # 短暂等待服务启动
+          for i in {1..5}; do  # 重试5次
+            curl -f http://localhost:30005 && break || echo "Service not reachable, retrying..." && sleep 5;
+          done
+
+      # - name: Test service accessibility (kind)
+      #   run: |
+      #     kubectl port-forward service/my-python-github-cicd-app-service 30005:80 &  # 后台运行端口转发
+      #     sleep 5  # 等待服务启动
+      #     curl -f http://localhost:30005 || echo "Service not reachable"
 
       # - name: Deploy to Remote Kubernetes Cluster
       #   env:
